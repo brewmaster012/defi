@@ -1,0 +1,24 @@
+{
+  "devDependencies": {
+    "@types/web3": "^1.2.2",
+    "esbuild": "0.24.0"
+  },
+  "dependencies": {
+    "@aave/contract-helpers": "^1.30.5",
+    "@aave/math-utils": "^1.30.5",
+    "@bgd-labs/aave-address-book": "^4.6.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "bignumber.js": "^9.1.2",
+    "bs58": "^6.0.0",
+    "buffer": "^6.0.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "typescript": "^5.7.2",
+    "web3": "^4.16.0"
+  },
+  "scripts": {
+    "release": "esbuild src/aave.tsx--bundle --minify --outdir=dist",
+    "start": "esbuild src/aave.tsx --bundle --sourcemap --outdir=dist --watch"
+  }
+}
