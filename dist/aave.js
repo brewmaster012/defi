@@ -41334,9 +41334,22 @@
 
   // src/aave.tsx
   var AAVE_POOL = "0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2";
-  var aETHUSDC = "0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c";
+  var ASSETS = {
+    USDC: {
+      address: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      aTokenAddress: "0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c",
+      name: "USDC",
+      decimals: 6
+    },
+    USDT: {
+      address: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+      aTokenAddress: "0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a",
+      name: "USDT",
+      decimals: 6
+    }
+  };
   var DEFAULT_PROVIDER_URL = "https://eth-mainnet.nodereal.io/v1/1659dfb40aa24bbb8153a677b98064d7";
-  var Balance = () => {
+  var Balance = ({ assetKey }) => {
     const [address, setAddress] = (0, import_react.useState)(() => {
       return localStorage.getItem("userAddress") || "";
     });
@@ -41354,6 +41367,7 @@
         );
       }
     );
+    const asset = ASSETS[assetKey];
     (0, import_react.useEffect)(() => {
       localStorage.setItem("userAddress", address);
     }, [address]);
@@ -41364,7 +41378,7 @@
     const fetchBalance = async () => {
       try {
         const contract = new ethers_exports.Contract(
-          aETHUSDC,
+          asset.aTokenAddress,
           [
             "function balanceOf(address) view returns (uint256)",
             "function decimals() view returns (uint8)"
@@ -41415,7 +41429,7 @@
     const resetProvider = () => {
       setProviderUrl(DEFAULT_PROVIDER_URL);
     };
-    return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement(
+    return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("h2", null, "a", asset.name, " Balance"), /* @__PURE__ */ import_react.default.createElement(
       "div",
       {
         style: {
@@ -41451,7 +41465,7 @@
     ), /* @__PURE__ */ import_react.default.createElement("button", { onClick: fetchBalance }, "Get Balance"), balance !== null && /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("p", null, "Balance: ", balance, " aETH/USDC"), /* @__PURE__ */ import_react.default.createElement("p", null, "Interest: ", interest, " aETH/USDC"), /* @__PURE__ */ import_react.default.createElement("p", null, "APY: ", apy)));
   };
   var App = () => {
-    return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("h1", null, "aETH/USDC Balance Checker"), /* @__PURE__ */ import_react.default.createElement(Balance, null));
+    return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("h1", null, "aETH/USDC Balance Checker"), /* @__PURE__ */ import_react.default.createElement(Balance, { assetKey: "USDC" }), /* @__PURE__ */ import_react.default.createElement(Balance, { assetKey: "USDT" }));
   };
   var root = import_client.default.createRoot(
     document.getElementById("root")

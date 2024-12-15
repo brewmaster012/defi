@@ -3,13 +3,30 @@ import ReactDOM from "react-dom/client";
 import { ethers } from "ethers";
 
 const AAVE_POOL = "0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2";
-const USDC = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
-const aETHUSDC = "0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c";
-const USDT = "0xdAC17F958D2ee523a2206206994597C13D831ec7";
+const ASSETS = {
+  USDC: {
+    address: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+    aTokenAddress: "0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c",
+    name: "USDC",
+    decimals: 6,
+  },
+  USDT: {
+    address: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+    aTokenAddress: "0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a",
+    name: "USDT",
+    decimals: 6,
+  },
+};
+// const USDC = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
+// const aETHUSDC = "0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c";
+// const USDT = "0xdAC17F958D2ee523a2206206994597C13D831ec7";
 const DEFAULT_PROVIDER_URL =
   "https://eth-mainnet.nodereal.io/v1/1659dfb40aa24bbb8153a677b98064d7";
 
-const Balance = () => {
+interface AssetBalanceProps {
+  assetKey: keyof typeof ASSETS;
+}
+const Balance: React.FC<AssetBalanceProps> = ({ assetKey }) => {
   const [address, setAddress] = useState(() => {
     return localStorage.getItem("userAddress") || "";
   });
@@ -28,6 +45,8 @@ const Balance = () => {
     },
   );
 
+  const asset = ASSETS[assetKey];
+
   // Update localStorage whenever address changes
   useEffect(() => {
     localStorage.setItem("userAddress", address);
@@ -40,7 +59,7 @@ const Balance = () => {
   const fetchBalance = async () => {
     try {
       const contract = new ethers.Contract(
-        aETHUSDC,
+        asset.aTokenAddress,
         [
           "function balanceOf(address) view returns (uint256)",
           "function decimals() view returns (uint8)",
@@ -105,6 +124,8 @@ const Balance = () => {
 
   return (
     <div>
+      <h2>a{asset.name} Balance</h2>
+
       <div
         style={{
           position: "absolute",
@@ -148,7 +169,8 @@ const App = () => {
   return (
     <div>
       <h1>aETH/USDC Balance Checker</h1>
-      <Balance />
+      <Balance assetKey="USDC" />
+      <Balance assetKey="USDT" />
     </div>
   );
 };
