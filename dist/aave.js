@@ -41354,7 +41354,7 @@
       return localStorage.getItem(`userAddress_${assetKey}`) || "";
     });
     const [balance, setBalance] = (0, import_react.useState)(0);
-    const [supply, setSupply] = (0, import_react.useState)(0);
+    const [supplies, setSupplies] = (0, import_react.useState)([]);
     const [interest, setInterest] = (0, import_react.useState)(0);
     const [apy, setApy] = (0, import_react.useState)(0);
     const [showSettings, setShowSettings] = (0, import_react.useState)(false);
@@ -41413,12 +41413,13 @@
           return acc + Number(event.amount) * (now2 - event.timestamp);
         }, 0);
         console.log("sum (amount*days)", sum / (3600 * 24));
-        const supply2 = supplyEvents.reduce((acc, event) => {
+        const supply = supplyEvents.reduce((acc, event) => {
           return acc + Number(event.amount);
         }, 0);
-        const interest2 = balance2 - supply2;
+        const interest2 = balance2 - supply;
         console.log("interest", interest2 / 1e6);
         setInterest(interest2 / 1e6);
+        setSupplies(supplyEvents);
         console.log(supplyEvents);
         const aps = interest2 / sum;
         setApy(aps * 365 * 3600 * 24);
@@ -41463,7 +41464,19 @@
         value: address,
         onChange: (e) => setAddress(e.target.value)
       }
-    ), /* @__PURE__ */ import_react.default.createElement("button", { onClick: fetchBalance }, "Get Balance"), balance !== null && /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("p", null, "Balance: ", balance, " a", asset.name), /* @__PURE__ */ import_react.default.createElement("p", null, "Supply: ", balance - interest, " ", asset.name), /* @__PURE__ */ import_react.default.createElement("p", null, "Interest: ", interest, " a", asset.name), /* @__PURE__ */ import_react.default.createElement("p", null, "APY: ", apy)));
+    ), /* @__PURE__ */ import_react.default.createElement("button", { onClick: fetchBalance }, "Get Balance"), balance !== null && /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("span", null, "Balance: ", balance, " a", asset.name), " ", /* @__PURE__ */ import_react.default.createElement("br", null), /* @__PURE__ */ import_react.default.createElement("span", null, "Supply: ", balance - interest, " ", asset.name), " ", /* @__PURE__ */ import_react.default.createElement("br", null), /* @__PURE__ */ import_react.default.createElement("span", null, "Interest: ", interest, " a", asset.name), " ", /* @__PURE__ */ import_react.default.createElement("br", null), /* @__PURE__ */ import_react.default.createElement("span", null, "APY: ", apy), /* @__PURE__ */ import_react.default.createElement("p", null, /* @__PURE__ */ import_react.default.createElement("b", null, "Supply Events")), /* @__PURE__ */ import_react.default.createElement("ul", null, supplies.map((supply, index) => /* @__PURE__ */ import_react.default.createElement("li", { key: index }, "Amount: ", Number(supply.amount) / Math.pow(10, asset.decimals), " ", asset.name, " at", " ", (() => {
+      const now2 = Date.now() / 1e3;
+      const diffDays = Math.floor(
+        (now2 - supply.timestamp) / (24 * 60 * 60)
+      );
+      if (diffDays < 30) {
+        return `${diffDays} days ago`;
+      } else {
+        const months = Math.floor(diffDays / 30);
+        const remainingDays = diffDays % 30;
+        return `${months} months and ${remainingDays} days ago`;
+      }
+    })())))));
   };
   var App = () => {
     return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("h1", null, "aETH/USDC Balance Checker"), /* @__PURE__ */ import_react.default.createElement(Balance, { assetKey: "USDC" }), /* @__PURE__ */ import_react.default.createElement(Balance, { assetKey: "USDT" }));

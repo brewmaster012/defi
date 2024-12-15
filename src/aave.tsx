@@ -26,12 +26,18 @@ const DEFAULT_PROVIDER_URL =
 interface AssetBalanceProps {
   assetKey: keyof typeof ASSETS;
 }
+
+type SupplyEvent = {
+  amount: ethers.BigNumber;
+  timestamp: number;
+};
+
 const Balance: React.FC<AssetBalanceProps> = ({ assetKey }) => {
   const [address, setAddress] = useState(() => {
     return localStorage.getItem(`userAddress_${assetKey}`) || "";
   });
   const [balance, setBalance] = useState<number>(0);
-  const [supply, setSupply] = useState<number>(0);
+  const [supplies, setSupplies] = useState<SupplyEvent[]>([]);
   const [interest, setInterest] = useState<number>(0);
   const [apy, setApy] = useState<number>(0);
   const [showSettings, setShowSettings] = useState(false);
@@ -85,10 +91,6 @@ const Balance: React.FC<AssetBalanceProps> = ({ assetKey }) => {
       const filter = poolContract.filters.Supply(null, null, address);
       const events = await poolContract.queryFilter(filter);
 
-      type SupplyEvent = {
-        amount: ethers.BigNumber;
-        timestamp: number;
-      };
       let supplyEvents: SupplyEvent[] = [];
       for (let event of events) {
         const block = await event.getBlock();
@@ -97,6 +99,7 @@ const Balance: React.FC<AssetBalanceProps> = ({ assetKey }) => {
           timestamp: block.timestamp,
         });
       }
+
       const now = Date.now() / 1000; // in seconds
       const sum = supplyEvents.reduce((acc, event) => {
         return acc + Number(event.amount) * (now - event.timestamp);
@@ -108,7 +111,7 @@ const Balance: React.FC<AssetBalanceProps> = ({ assetKey }) => {
       const interest = balance - supply;
       console.log("interest", interest / 1e6);
       setInterest(interest / 1e6);
-
+      setSupplies(supplyEvents);
       console.log(supplyEvents);
 
       // calculate APY
@@ -157,16 +160,43 @@ const Balance: React.FC<AssetBalanceProps> = ({ assetKey }) => {
       <button onClick={fetchBalance}>Get Balance</button>
       {balance !== null && (
         <div>
-          <p>
+          <span>
             Balance: {balance} a{asset.name}
-          </p>
-          <p>
+          </span>{" "}
+          <br />
+          <span>
             Supply: {balance - interest} {asset.name}
-          </p>
-          <p>
+          </span>{" "}
+          <br />
+          <span>
             Interest: {interest} a{asset.name}
+          </span>{" "}
+          <br />
+          <span>APY: {apy}</span>
+          <p>
+            <b>Supply Events</b>
           </p>
-          <p>APY: {apy}</p>
+          <ul>
+            {supplies.map((supply, index) => (
+              <li key={index}>
+                Amount: {Number(supply.amount) / Math.pow(10, asset.decimals)}{" "}
+                {asset.name} at{" "}
+                {(() => {
+                  const now = Date.now() / 1000;
+                  const diffDays = Math.floor(
+                    (now - supply.timestamp) / (24 * 60 * 60),
+                  );
+                  if (diffDays < 30) {
+                    return `${diffDays} days ago`;
+                  } else {
+                    const months = Math.floor(diffDays / 30);
+                    const remainingDays = diffDays % 30;
+                    return `${months} months and ${remainingDays} days ago`;
+                  }
+                })()}
+              </li>
+            ))}
+          </ul>
         </div>
       )}
     </div>
