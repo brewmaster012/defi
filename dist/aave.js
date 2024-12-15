@@ -41351,7 +41351,7 @@
   var DEFAULT_PROVIDER_URL = "https://eth-mainnet.nodereal.io/v1/1659dfb40aa24bbb8153a677b98064d7";
   var Balance = ({ assetKey }) => {
     const [address, setAddress] = (0, import_react.useState)(() => {
-      return localStorage.getItem("userAddress") || "";
+      return localStorage.getItem(`userAddress_${assetKey}`) || "";
     });
     const [balance, setBalance] = (0, import_react.useState)(0);
     const [interest, setInterest] = (0, import_react.useState)(0);
@@ -41369,7 +41369,7 @@
     );
     const asset = ASSETS[assetKey];
     (0, import_react.useEffect)(() => {
-      localStorage.setItem("userAddress", address);
+      localStorage.setItem(`userAddress_${assetKey}`, address);
     }, [address]);
     (0, import_react.useEffect)(() => {
       localStorage.setItem("providerUrl", providerUrl);

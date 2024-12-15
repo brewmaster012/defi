@@ -28,7 +28,7 @@ interface AssetBalanceProps {
 }
 const Balance: React.FC<AssetBalanceProps> = ({ assetKey }) => {
   const [address, setAddress] = useState(() => {
-    return localStorage.getItem("userAddress") || "";
+    return localStorage.getItem(`userAddress_${assetKey}`) || "";
   });
   const [balance, setBalance] = useState<number>(0);
   const [interest, setInterest] = useState<number>(0);
@@ -49,7 +49,7 @@ const Balance: React.FC<AssetBalanceProps> = ({ assetKey }) => {
 
   // Update localStorage whenever address changes
   useEffect(() => {
-    localStorage.setItem("userAddress", address);
+    localStorage.setItem(`userAddress_${assetKey}`, address);
   }, [address]);
   useEffect(() => {
     localStorage.setItem("providerUrl", providerUrl);
