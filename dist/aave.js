@@ -41354,6 +41354,7 @@
       return localStorage.getItem(`userAddress_${assetKey}`) || "";
     });
     const [balance, setBalance] = (0, import_react.useState)(0);
+    const [supply, setSupply] = (0, import_react.useState)(0);
     const [interest, setInterest] = (0, import_react.useState)(0);
     const [apy, setApy] = (0, import_react.useState)(0);
     const [showSettings, setShowSettings] = (0, import_react.useState)(false);
@@ -41412,10 +41413,10 @@
           return acc + Number(event.amount) * (now2 - event.timestamp);
         }, 0);
         console.log("sum (amount*days)", sum / (3600 * 24));
-        const supply = supplyEvents.reduce((acc, event) => {
+        const supply2 = supplyEvents.reduce((acc, event) => {
           return acc + Number(event.amount);
         }, 0);
-        const interest2 = balance2 - supply;
+        const interest2 = balance2 - supply2;
         console.log("interest", interest2 / 1e6);
         setInterest(interest2 / 1e6);
         console.log(supplyEvents);
@@ -41462,7 +41463,7 @@
         value: address,
         onChange: (e) => setAddress(e.target.value)
       }
-    ), /* @__PURE__ */ import_react.default.createElement("button", { onClick: fetchBalance }, "Get Balance"), balance !== null && /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("p", null, "Balance: ", balance, " aETH/USDC"), /* @__PURE__ */ import_react.default.createElement("p", null, "Interest: ", interest, " aETH/USDC"), /* @__PURE__ */ import_react.default.createElement("p", null, "APY: ", apy)));
+    ), /* @__PURE__ */ import_react.default.createElement("button", { onClick: fetchBalance }, "Get Balance"), balance !== null && /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("p", null, "Balance: ", balance, " a", asset.name), /* @__PURE__ */ import_react.default.createElement("p", null, "Supply: ", balance - interest, " ", asset.name), /* @__PURE__ */ import_react.default.createElement("p", null, "Interest: ", interest, " a", asset.name), /* @__PURE__ */ import_react.default.createElement("p", null, "APY: ", apy)));
   };
   var App = () => {
     return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("h1", null, "aETH/USDC Balance Checker"), /* @__PURE__ */ import_react.default.createElement(Balance, { assetKey: "USDC" }), /* @__PURE__ */ import_react.default.createElement(Balance, { assetKey: "USDT" }));

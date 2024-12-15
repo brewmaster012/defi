@@ -31,6 +31,7 @@ const Balance: React.FC<AssetBalanceProps> = ({ assetKey }) => {
     return localStorage.getItem(`userAddress_${assetKey}`) || "";
   });
   const [balance, setBalance] = useState<number>(0);
+  const [supply, setSupply] = useState<number>(0);
   const [interest, setInterest] = useState<number>(0);
   const [apy, setApy] = useState<number>(0);
   const [showSettings, setShowSettings] = useState(false);
@@ -156,8 +157,15 @@ const Balance: React.FC<AssetBalanceProps> = ({ assetKey }) => {
       <button onClick={fetchBalance}>Get Balance</button>
       {balance !== null && (
         <div>
-          <p>Balance: {balance} aETH/USDC</p>
-          <p>Interest: {interest} aETH/USDC</p>
+          <p>
+            Balance: {balance} a{asset.name}
+          </p>
+          <p>
+            Supply: {balance - interest} {asset.name}
+          </p>
+          <p>
+            Interest: {interest} a{asset.name}
+          </p>
           <p>APY: {apy}</p>
         </div>
       )}
