@@ -1477,7 +1477,7 @@
           return dispatcher;
         }
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-        var React2 = require_react(), Internals = {
+        var React3 = require_react(), Internals = {
           d: {
             f: noop,
             r: function() {
@@ -1495,7 +1495,7 @@
           },
           p: 0,
           findDOMNode: null
-        }, REACT_PORTAL_TYPE = Symbol.for("react.portal"), ReactSharedInternals = React2.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+        }, REACT_PORTAL_TYPE = Symbol.for("react.portal"), ReactSharedInternals = React3.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
         "function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error(
           "React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills"
         );
@@ -2951,7 +2951,7 @@
           "number" === type && getActiveElement(node.ownerDocument) === node || node.defaultValue === "" + value || (node.defaultValue = "" + value);
         }
         function validateOptionProps(element, props) {
-          null == props.value && ("object" === typeof props.children && null !== props.children ? React2.Children.forEach(props.children, function(child) {
+          null == props.value && ("object" === typeof props.children && null !== props.children ? React3.Children.forEach(props.children, function(child) {
             null == child || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || didWarnInvalidChild || (didWarnInvalidChild = true, console.error(
               "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
             ));
@@ -16421,13 +16421,13 @@
           ));
         }
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-        var Scheduler = require_scheduler(), React2 = require_react(), ReactDOM2 = require_react_dom(), REACT_LEGACY_ELEMENT_TYPE = Symbol.for("react.element"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_PROVIDER_TYPE = Symbol.for("react.provider"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy");
+        var Scheduler = require_scheduler(), React3 = require_react(), ReactDOM2 = require_react_dom(), REACT_LEGACY_ELEMENT_TYPE = Symbol.for("react.element"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_PROVIDER_TYPE = Symbol.for("react.provider"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy");
         Symbol.for("react.scope");
         Symbol.for("react.debug_trace_mode");
         var REACT_OFFSCREEN_TYPE = Symbol.for("react.offscreen");
         Symbol.for("react.legacy_hidden");
         Symbol.for("react.tracing_marker");
-        var REACT_MEMO_CACHE_SENTINEL = Symbol.for("react.memo_cache_sentinel"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), ReactSharedInternals = React2.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, assign = Object.assign, disabledDepth = 0, prevLog, prevInfo, prevWarn, prevError, prevGroup, prevGroupCollapsed, prevGroupEnd;
+        var REACT_MEMO_CACHE_SENTINEL = Symbol.for("react.memo_cache_sentinel"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), ReactSharedInternals = React3.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, assign = Object.assign, disabledDepth = 0, prevLog, prevInfo, prevWarn, prevError, prevGroup, prevGroupCollapsed, prevGroupEnd;
         disabledLog.__reactDisabledLog = true;
         var prefix, suffix, reentry = false;
         var componentFrameCache = new ("function" === typeof WeakMap ? WeakMap : Map)();
@@ -19147,7 +19147,7 @@
           }
         };
         (function() {
-          var isomorphicReactPackageVersion = React2.version;
+          var isomorphicReactPackageVersion = React3.version;
           if ("19.0.0" !== isomorphicReactPackageVersion)
             throw Error(
               'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.0.0\nLearn more: https://react.dev/warnings/version-mismatch")
@@ -25668,7 +25668,7 @@
   });
 
   // src/aave.tsx
-  var import_react = __toESM(require_react());
+  var import_react2 = __toESM(require_react());
   var import_client = __toESM(require_client());
 
   // node_modules/ethers/lib.esm/ethers.js
@@ -41332,6 +41332,41 @@
   } catch (error) {
   }
 
+  // src/provider.tsx
+  var import_react = __toESM(require_react());
+  var DEFAULT_PROVIDER_URL2 = "https://eth-mainnet.nodereal.io/v1/1659dfb40aa24bbb8153a677b98064d7";
+  var ProviderSettings = ({
+    providerUrl,
+    onProviderChange
+  }) => {
+    const resetProvider = () => {
+      onProviderChange(DEFAULT_PROVIDER_URL2);
+    };
+    return /* @__PURE__ */ import_react.default.createElement(
+      "div",
+      {
+        style: {
+          padding: "20px",
+          backgroundColor: "#f5f5f5",
+          borderRadius: "5px",
+          boxShadow: "0 2px 5px rgba(0,0,0,0.2)"
+        }
+      },
+      /* @__PURE__ */ import_react.default.createElement("h3", null, "Provider Settings"),
+      /* @__PURE__ */ import_react.default.createElement(
+        "input",
+        {
+          type: "text",
+          placeholder: "Provider URL",
+          value: providerUrl,
+          onChange: (e) => onProviderChange(e.target.value),
+          style: { width: "300px" }
+        }
+      ),
+      /* @__PURE__ */ import_react.default.createElement("button", { onClick: resetProvider }, "Reset to Default")
+    );
+  };
+
   // src/aave.tsx
   var AAVE_POOL = "0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2";
   var ASSETS = {
@@ -41348,32 +41383,19 @@
       decimals: 6
     }
   };
-  var DEFAULT_PROVIDER_URL = "https://eth-mainnet.nodereal.io/v1/1659dfb40aa24bbb8153a677b98064d7";
-  var Balance = ({ assetKey }) => {
-    const [address, setAddress] = (0, import_react.useState)(() => {
+  var Balance = ({ assetKey, providerUrl }) => {
+    const [address, setAddress] = (0, import_react2.useState)(() => {
       return localStorage.getItem(`userAddress_${assetKey}`) || "";
     });
-    const [balance, setBalance] = (0, import_react.useState)(0);
-    const [supplies, setSupplies] = (0, import_react.useState)([]);
-    const [interest, setInterest] = (0, import_react.useState)(0);
-    const [apy, setApy] = (0, import_react.useState)(0);
-    const [showSettings, setShowSettings] = (0, import_react.useState)(false);
-    const [providerUrl, setProviderUrl] = (0, import_react.useState)(() => {
-      return localStorage.getItem("providerUrl") || DEFAULT_PROVIDER_URL;
-    });
-    const [provider, setProvider] = (0, import_react.useState)(
-      () => {
-        return new ethers_exports.providers.JsonRpcProvider(
-          localStorage.getItem("providerUrl") || DEFAULT_PROVIDER_URL
-        );
-      }
+    const [balance, setBalance] = (0, import_react2.useState)(0);
+    const [supplies, setSupplies] = (0, import_react2.useState)([]);
+    const [interest, setInterest] = (0, import_react2.useState)(0);
+    const [apy, setApy] = (0, import_react2.useState)(0);
+    const [provider, setProvider] = (0, import_react2.useState)(
+      () => new ethers_exports.providers.JsonRpcProvider(providerUrl)
     );
     const asset = ASSETS[assetKey];
-    (0, import_react.useEffect)(() => {
-      localStorage.setItem(`userAddress_${assetKey}`, address);
-    }, [address]);
-    (0, import_react.useEffect)(() => {
-      localStorage.setItem("providerUrl", providerUrl);
+    (0, import_react2.useEffect)(() => {
       setProvider(new ethers_exports.providers.JsonRpcProvider(providerUrl));
     }, [providerUrl]);
     const fetchBalance = async () => {
@@ -41428,35 +41450,7 @@
         setBalance(0);
       }
     };
-    const resetProvider = () => {
-      setProviderUrl(DEFAULT_PROVIDER_URL);
-    };
-    return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("h2", null, "a", asset.name, " Balance"), /* @__PURE__ */ import_react.default.createElement(
-      "div",
-      {
-        style: {
-          position: "absolute",
-          top: "50px",
-          right: "10px",
-          padding: "20px",
-          backgroundColor: "#f5f5f5",
-          borderRadius: "5px",
-          boxShadow: "0 2px 5px rgba(0,0,0,0.2)"
-        }
-      },
-      /* @__PURE__ */ import_react.default.createElement("h3", null, "Provider Settings"),
-      /* @__PURE__ */ import_react.default.createElement(
-        "input",
-        {
-          type: "text",
-          placeholder: "Provider URL",
-          value: providerUrl,
-          onChange: (e) => setProviderUrl(e.target.value),
-          style: { width: "300px" }
-        }
-      ),
-      /* @__PURE__ */ import_react.default.createElement("button", { onClick: resetProvider }, "Reset to Default")
-    ), /* @__PURE__ */ import_react.default.createElement(
+    return /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement("h2", null, "a", asset.name, " Balance"), /* @__PURE__ */ import_react2.default.createElement(
       "input",
       {
         type: "text",
@@ -41464,7 +41458,7 @@
         value: address,
         onChange: (e) => setAddress(e.target.value)
       }
-    ), /* @__PURE__ */ import_react.default.createElement("button", { onClick: fetchBalance }, "Get Balance"), balance !== null && /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("span", null, "Balance: ", balance, " a", asset.name), " ", /* @__PURE__ */ import_react.default.createElement("br", null), /* @__PURE__ */ import_react.default.createElement("span", null, "Supply: ", balance - interest, " ", asset.name), " ", /* @__PURE__ */ import_react.default.createElement("br", null), /* @__PURE__ */ import_react.default.createElement("span", null, "Interest: ", interest, " a", asset.name), " ", /* @__PURE__ */ import_react.default.createElement("br", null), /* @__PURE__ */ import_react.default.createElement("span", null, "APY: ", apy), /* @__PURE__ */ import_react.default.createElement("p", null, /* @__PURE__ */ import_react.default.createElement("b", null, "Supply Events")), /* @__PURE__ */ import_react.default.createElement("ul", null, supplies.map((supply, index) => /* @__PURE__ */ import_react.default.createElement("li", { key: index }, "Amount: ", Number(supply.amount) / Math.pow(10, asset.decimals), " ", asset.name, " at", " ", (() => {
+    ), /* @__PURE__ */ import_react2.default.createElement("button", { onClick: fetchBalance }, "Get Balance"), balance !== null && /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement("span", null, "Balance: ", balance, " a", asset.name), " ", /* @__PURE__ */ import_react2.default.createElement("br", null), /* @__PURE__ */ import_react2.default.createElement("span", null, "Supply: ", balance - interest, " ", asset.name), " ", /* @__PURE__ */ import_react2.default.createElement("br", null), /* @__PURE__ */ import_react2.default.createElement("span", null, "Interest: ", interest, " a", asset.name), " ", /* @__PURE__ */ import_react2.default.createElement("br", null), /* @__PURE__ */ import_react2.default.createElement("span", null, "APY: ", apy), /* @__PURE__ */ import_react2.default.createElement("p", null, /* @__PURE__ */ import_react2.default.createElement("b", null, "Supply Events")), /* @__PURE__ */ import_react2.default.createElement("ul", null, supplies.map((supply, index) => /* @__PURE__ */ import_react2.default.createElement("li", { key: index }, "Amount: ", Number(supply.amount) / Math.pow(10, asset.decimals), " ", asset.name, " at", " ", (() => {
       const now2 = Date.now() / 1e3;
       const diffDays = Math.floor(
         (now2 - supply.timestamp) / (24 * 60 * 60)
@@ -41479,12 +41473,24 @@
     })())))));
   };
   var App = () => {
-    return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("h1", null, "aETH/USDC Balance Checker"), /* @__PURE__ */ import_react.default.createElement(Balance, { assetKey: "USDC" }), /* @__PURE__ */ import_react.default.createElement(Balance, { assetKey: "USDT" }));
+    const [providerUrl, setProviderUrl] = (0, import_react2.useState)(() => {
+      return localStorage.getItem("providerUrl") || DEFAULT_PROVIDER_URL;
+    });
+    (0, import_react2.useEffect)(() => {
+      localStorage.setItem("providerUrl", providerUrl);
+    }, [providerUrl]);
+    return /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement(
+      ProviderSettings,
+      {
+        providerUrl,
+        onProviderChange: setProviderUrl
+      }
+    ), /* @__PURE__ */ import_react2.default.createElement("h1", null, "aETH/USDC Balance Checker"), /* @__PURE__ */ import_react2.default.createElement(Balance, { assetKey: "USDC", providerUrl }), /* @__PURE__ */ import_react2.default.createElement(Balance, { assetKey: "USDT", providerUrl }));
   };
   var root = import_client.default.createRoot(
     document.getElementById("root")
   );
-  root.render(/* @__PURE__ */ import_react.default.createElement(App, null));
+  root.render(/* @__PURE__ */ import_react2.default.createElement(App, null));
 })();
 /*! Bundled license information:
 

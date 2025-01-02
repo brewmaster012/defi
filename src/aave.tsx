@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import { ethers } from "ethers";
+import { providers } from "web3";
+
+import { ProviderSettings } from "./provider";
 
 const AAVE_POOL = "0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2";
 const ASSETS = {
@@ -20,19 +23,18 @@ const ASSETS = {
 // const USDC = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
 // const aETHUSDC = "0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c";
 // const USDT = "0xdAC17F958D2ee523a2206206994597C13D831ec7";
-const DEFAULT_PROVIDER_URL =
-  "https://eth-mainnet.nodereal.io/v1/1659dfb40aa24bbb8153a677b98064d7";
-
-interface AssetBalanceProps {
-  assetKey: keyof typeof ASSETS;
-}
 
 type SupplyEvent = {
   amount: ethers.BigNumber;
   timestamp: number;
 };
 
-const Balance: React.FC<AssetBalanceProps> = ({ assetKey }) => {
+interface AssetBalanceProps {
+  assetKey: keyof typeof ASSETS;
+  providerUrl: string;
+}
+
+const Balance: React.FC<AssetBalanceProps> = ({ assetKey, providerUrl }) => {
   const [address, setAddress] = useState(() => {
     return localStorage.getItem(`userAddress_${assetKey}`) || "";
   });
@@ -40,26 +42,15 @@ const Balance: React.FC<AssetBalanceProps> = ({ assetKey }) => {
   const [supplies, setSupplies] = useState<SupplyEvent[]>([]);
   const [interest, setInterest] = useState<number>(0);
   const [apy, setApy] = useState<number>(0);
-  const [showSettings, setShowSettings] = useState(false);
-  const [providerUrl, setProviderUrl] = useState(() => {
-    return localStorage.getItem("providerUrl") || DEFAULT_PROVIDER_URL;
-  });
+
   const [provider, setProvider] = useState<ethers.providers.JsonRpcProvider>(
-    () => {
-      return new ethers.providers.JsonRpcProvider(
-        localStorage.getItem("providerUrl") || DEFAULT_PROVIDER_URL,
-      );
-    },
+    () => new ethers.providers.JsonRpcProvider(providerUrl),
   );
 
   const asset = ASSETS[assetKey];
 
   // Update localStorage whenever address changes
   useEffect(() => {
-    localStorage.setItem(`userAddress_${assetKey}`, address);
-  }, [address]);
-  useEffect(() => {
-    localStorage.setItem("providerUrl", providerUrl);
     setProvider(new ethers.providers.JsonRpcProvider(providerUrl));
   }, [providerUrl]);
 
@@ -122,35 +113,10 @@ const Balance: React.FC<AssetBalanceProps> = ({ assetKey }) => {
       setBalance(0);
     }
   };
-  const resetProvider = () => {
-    setProviderUrl(DEFAULT_PROVIDER_URL);
-  };
 
   return (
     <div>
       <h2>a{asset.name} Balance</h2>
-
-      <div
-        style={{
-          position: "absolute",
-          top: "50px",
-          right: "10px",
-          padding: "20px",
-          backgroundColor: "#f5f5f5",
-          borderRadius: "5px",
-          boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
-        }}
-      >
-        <h3>Provider Settings</h3>
-        <input
-          type="text"
-          placeholder="Provider URL"
-          value={providerUrl}
-          onChange={(e) => setProviderUrl(e.target.value)}
-          style={{ width: "300px" }}
-        />
-        <button onClick={resetProvider}>Reset to Default</button>
-      </div>
       <input
         type="text"
         placeholder="Enter address"
@@ -204,11 +170,21 @@ const Balance: React.FC<AssetBalanceProps> = ({ assetKey }) => {
 };
 
 const App = () => {
+  const [providerUrl, setProviderUrl] = useState(() => {
+    return localStorage.getItem("providerUrl") || DEFAULT_PROVIDER_URL;
+  });
+  useEffect(() => {
+    localStorage.setItem("providerUrl", providerUrl);
+  }, [providerUrl]);
   return (
     <div>
+      <ProviderSettings
+        providerUrl={providerUrl}
+        onProviderChange={setProviderUrl}
+      />
       <h1>aETH/USDC Balance Checker</h1>
-      <Balance assetKey="USDC" />
-      <Balance assetKey="USDT" />
+      <Balance assetKey="USDC" providerUrl={providerUrl} />
+      <Balance assetKey="USDT" providerUrl={providerUrl} />
     </div>
   );
 };

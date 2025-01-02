@@ -2,7 +2,7 @@ const esbuild = require("esbuild");
 
 esbuild
   .build({
-    entryPoints: ["src/aave.ts"],
+    entryPoints: ["src/aave.tsx"],
     bundle: true,
     minify: true,
     sourcemap: true,
